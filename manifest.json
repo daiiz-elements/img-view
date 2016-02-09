@@ -1,0 +1,36 @@
+{
+    "manifest_version": 2,
+    "name": "<img-view>",
+    "short_name": "img-view",
+    "description": "Sample app for <img-view>",
+    "version": "0.0.1",
+    "minimum_chrome_version": "38",
+
+    "icons": {
+        "16" : "sample/seed-icon.png",
+        "48" : "sample/seed-icon.png",
+        "128": "sample/seed-icon.png"
+    },
+
+    "app": {
+        "background": {
+            "scripts": [
+                "sample/background.js"
+            ]
+        }
+    },
+
+    "webview": {
+        "partitions": [
+            {
+                "name": "static",
+                "accessible_resources": ["imgview.html"]
+            }
+        ]
+    },
+
+    "permissions": [
+        "webview",
+        "<all_urls>"
+    ]
+}
