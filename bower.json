@@ -1,0 +1,11 @@
+{
+    "name": "img-view",
+    "version": "1.0.0",
+    "authors": [
+        "daiiz"
+    ],
+    "description": "img element with chrome webview",
+    "main": "img-view.js",
+    "dependencies": {
+    }
+}
