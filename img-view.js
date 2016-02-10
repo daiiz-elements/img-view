@@ -22,12 +22,13 @@ class ImgView extends HTMLElement {
             <style>
                 :host {
                     display: inline-block;
-                    position: absolute;
-                }
-                .imgview-root {
-                    position: absolute;
                     width: 200px;
                     height: 200px;
+                }
+                .imgview-root {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
                     background-color: #ccc;
                     top: 0px;
                     left: 0px;
@@ -49,11 +50,19 @@ class ImgView extends HTMLElement {
                 }
             </style>
             <div class='imgview-root'>
-                <webview class='imgview-webview'></webview>
+                <webview class='imgview-webview' partition='static'></webview>
                 <div class='imgview-layer'></div>
             </div>
         `;
         console.info(this);
+        this.updateElement();
+    }
+
+    updateElement () {
+        var g = this.shadowRoot;
+        //var imgViewRoot = g.querySelector('.imgview-root');
+        //imgViewRoot.style.width = '170px';
+        //console.info(imgViewRoot)
     }
 
     attachedCallback () {
