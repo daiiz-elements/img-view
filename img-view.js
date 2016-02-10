@@ -6,15 +6,22 @@ class ImgView extends HTMLElement {
         return 'img-view';
     }
 
+    /* 画像URIを与える */
     set src (val) {
         this.setAttribute('src', val);
-        console.info(val)
-        //this.updateQuotes();
     }
 
     get src () {
-        let s = this.getAttribute('src');
-        return s;
+        return this.getAttribute('src');
+    }
+
+    /* 背景色を与える */
+    set bgcolor (val) {
+        this.setAttribute('bgcolor', val);
+    }
+
+    get bgcolor () {
+        return this.getAttribute('bgcolor');
     }
 
     createdCallback () {
@@ -54,12 +61,26 @@ class ImgView extends HTMLElement {
                 <div class='imgview-layer'></div>
             </div>
         `;
-        console.info(this);
-        this.updateElement();
+        this.updateWebView();
+    }
+
+    updateWebView () {
+        var g = this.shadowRoot;
+        if (this.src !== undefined) {
+            var imgViewWebView = g.querySelector('.imgview-webview');
+            var width = this.offsetWidth;
+            var height = this.offsetHeight;
+            var bgcolor = this.bgcolor || 'rgba(0, 0, 0, 0)';
+            var src = this.src || '';
+            console.info(width, height, bgcolor);
+        }
     }
 
     updateElement () {
         var g = this.shadowRoot;
+        var imgViewLayer = g.querySelector('.imgview-layer');
+        var imgViewWebView = g.querySelector('.imgview-webview');
+
         //var imgViewRoot = g.querySelector('.imgview-root');
         //imgViewRoot.style.width = '170px';
         //console.info(imgViewRoot)
