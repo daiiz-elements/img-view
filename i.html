@@ -21,7 +21,6 @@
     <body>
         <div id="imgview">
         </div>
-        <!--script src="img-webview.js"></script-->
         <script>
         window.addEventListener('load', function () {
             var query = window.location.href.split('?')[1];
@@ -38,7 +37,7 @@
                             imgview.style.backgroundImage = 'url(' + val + ')';
                             break;
                         case 'c':
-                            imgview.style.backgroundColor = val;
+                            body.style.backgroundColor = val;
                             break;
                         case 'w':
                             body.style.width = val;
