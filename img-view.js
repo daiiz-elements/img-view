@@ -67,7 +67,8 @@ class ImgView extends HTMLElement {
                 }
             </style>
             <div class='imgview-root'>
-                <!-- add here -->
+                <webview class='imgview-webview' partition='static' src=''></webview>
+                <div class='imgview-layer'></div>
             </div>
         `;
         this.updateWebView();
@@ -75,7 +76,7 @@ class ImgView extends HTMLElement {
 
     updateWebView () {
         var g = this.shadowRoot;
-        var base = 'img-webview.html?';
+        var base = 'i.html?';
         if (this.src !== undefined) {
             var width = this.offsetWidth + 'px';
             var height = this.offsetHeight + 'px';
@@ -83,14 +84,7 @@ class ImgView extends HTMLElement {
             var src = this.src || '#';
             var radius = this.radius || '0px';
             var query = 'src=' + src + '&w=' + width + '&h=' + height + '&c=' + bgcolor + '&r=' + radius;
-
-            var webview = "<webview class='imgview-webview' partition='static' src='"+ (base + query) +"'></webview>";
-            var layer = "<div class='imgview-layer'></div>";
-            console.info(base + query)
-            console.info(width, height, bgcolor, radius);
-            
-            g.querySelector('.imgview-root').innerHTML = '';
-            g.querySelector('.imgview-root').innerHTML = (webview + layer);
+            g.querySelector('.imgview-webview').setAttribute('src', base + query);
         }
     }
 
