@@ -3,8 +3,58 @@
     <head>
         <title>img-webview</title>
         <meta charset="utf-8">
+        <style>
+            body {
+                margin: 0px;
+                background-color: 'yellow';
+            }
+            #imgview {
+                width: 100%;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                background-color: red;
+            }
+        </style>
     </head>
     <body>
-        <script src="img-webveiw.js"></script>
+        <div id="imgview">
+        </div>
+        <!--script src="img-webview.js"></script-->
+        <script>
+        window.addEventListener('load', function () {
+            var query = window.location.href.split('?')[1];
+            if (query !== undefined) {
+                var queries = query.split('&');
+                var imgview = document.querySelector('#imgview');
+                var body = document.querySelector('body');
+                queries.forEach(function (q) {
+                    var tokens = q.split('=');
+                    var attr = tokens[0];
+                    var val = tokens[1];
+                    switch (attr) {
+                        case 'src':
+                            imgview.style.backgroundImage = 'url(' + val + ')';
+                            break;
+                        case 'c':
+                            imgview.style.backgroundColor = val;
+                            break;
+                        case 'w':
+                            body.style.width = val;
+                            break;
+                        case 'h':
+                            body.style.height = val
+                            break;
+                        case 'r':
+                            imgview.style.borderRadius = val;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+        }, false);
+        </script>
     </body>
 </html>

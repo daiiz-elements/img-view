@@ -24,7 +24,7 @@
         "partitions": [
             {
                 "name": "static",
-                "accessible_resources": ["imgview.html"]
+                "accessible_resources": ["img-webview.html"]
             }
         ]
     },

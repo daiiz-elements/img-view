@@ -24,6 +24,15 @@ class ImgView extends HTMLElement {
         return this.getAttribute('bgcolor');
     }
 
+    /* 角丸長方形（あるいは円形）指定をする */
+    set radius (val) {
+        this.setAttribute('radius', val);
+    }
+
+    get radius () {
+        return this.getAttribute('radius');
+    }
+
     createdCallback () {
         this.createShadowRoot().innerHTML = `
             <style>
@@ -43,22 +52,22 @@ class ImgView extends HTMLElement {
                 .imgview-webview {
                     position: absolute;
                     width: 100%;
-                    height: 30px;
-                    top: -1px;
+                    height: 100%;
+                    top: 0px;
                     left: 0px;
                 }
                 .imgview-layer {
                     position: absolute;
                     width: 100%;
-                    height: 30px;
+                    height: 100%;
                     top: 0px;
                     left: 0px;
+                    background-color: rgba(0, 0, 0, 0);
                     cursor: pointer;
                 }
             </style>
             <div class='imgview-root'>
-                <webview class='imgview-webview' partition='static'></webview>
-                <div class='imgview-layer'></div>
+                <!-- add here -->
             </div>
         `;
         this.updateWebView();
@@ -66,32 +75,29 @@ class ImgView extends HTMLElement {
 
     updateWebView () {
         var g = this.shadowRoot;
+        var base = 'img-webview.html?';
         if (this.src !== undefined) {
-            var imgViewWebView = g.querySelector('.imgview-webview');
-            var width = this.offsetWidth;
-            var height = this.offsetHeight;
-            var bgcolor = this.bgcolor || 'rgba(0, 0, 0, 0)';
-            var src = this.src || '';
-            console.info(width, height, bgcolor);
+            var width = this.offsetWidth + 'px';
+            var height = this.offsetHeight + 'px';
+            var bgcolor = this.bgcolor || '#fff';
+            var src = this.src || '#';
+            var radius = this.radius || '0px';
+            var query = 'src=' + src + '&w=' + width + '&h=' + height + '&c=' + bgcolor + '&r=' + radius;
+
+            var webview = "<webview class='imgview-webview' partition='static' src='"+ (base + query) +"'></webview>";
+            var layer = "<div class='imgview-layer'></div>";
+            console.info(base + query)
+            console.info(width, height, bgcolor, radius);
+            
+            g.querySelector('.imgview-root').innerHTML = '';
+            g.querySelector('.imgview-root').innerHTML = (webview + layer);
         }
     }
 
-    updateElement () {
-        var g = this.shadowRoot;
-        var imgViewLayer = g.querySelector('.imgview-layer');
-        var imgViewWebView = g.querySelector('.imgview-webview');
-
-        //var imgViewRoot = g.querySelector('.imgview-root');
-        //imgViewRoot.style.width = '170px';
-        //console.info(imgViewRoot)
-    }
-
     attachedCallback () {
-
     }
 
     detachedCallback () {
-
     }
 
     attributeChangedCallback (e) {
