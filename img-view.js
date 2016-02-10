@@ -24,7 +24,7 @@ class ImgView extends HTMLElement {
         return this.getAttribute('bgcolor');
     }
 
-    /* 角丸長方形（あるいは円形）指定をする */
+    /* 角丸長方形の半径を指定する */
     set radius (val) {
         this.setAttribute('radius', val);
     }
