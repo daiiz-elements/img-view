@@ -67,8 +67,6 @@ class ImgView extends HTMLElement {
                 }
             </style>
             <div class='imgview-root'>
-                <webview class='imgview-webview' partition='static' src=''></webview>
-                <div class='imgview-layer'></div>
             </div>
         `;
         this.updateWebView();
@@ -76,6 +74,7 @@ class ImgView extends HTMLElement {
 
     updateWebView () {
         var g = this.shadowRoot;
+        var imgViewRoot = g.querySelector('.imgview-root');
         var base = 'i.html?';
         if (this.src !== undefined) {
             var width = this.offsetWidth + 'px';
@@ -84,7 +83,12 @@ class ImgView extends HTMLElement {
             var src = this.src || '#';
             var radius = this.radius || '0px';
             var query = 'src=' + src + '&w=' + width + '&h=' + height + '&c=' + bgcolor + '&r=' + radius;
-            g.querySelector('.imgview-webview').setAttribute('src', base + query);
+
+            /* 各属性を確実に更新するため，毎回描画する */
+            var webview ="<webview class='imgview-webview' partition='static' src='"+ (base + query) +"'></webview>";
+            var layer = "<div class='imgview-layer'></div>";
+            imgViewRoot.innerHTML = '';
+            imgViewRoot.innerHTML = webview + layer;
         }
     }
 
@@ -94,8 +98,8 @@ class ImgView extends HTMLElement {
     detachedCallback () {
     }
 
-    attributeChangedCallback (e) {
-        console.info(e)
+    attributeChangedCallback () {
+        this.updateWebView();
     }
 }
 
