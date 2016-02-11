@@ -18,6 +18,11 @@ The first steps to use `img-view` element:
 }
 ```
 
+#### Install
+```
+$ bower install daiz713/img-view
+```
+
 #### Examples:
 Display the square (100 x 100 px) avatar image:
 ```
